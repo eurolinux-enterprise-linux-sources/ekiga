@@ -1,7 +1,7 @@
 Summary:	A Gnome based SIP/H323 teleconferencing application
 Name:		ekiga
 Version:	4.0.1
-Release:	5%{?dist}
+Release:	7%{?dist}
 License:	GPLv2+
 Group:		Applications/Communications
 URL:		http://www.ekiga.org/
@@ -146,6 +146,9 @@ scrollkeeper-update -q || :
 %{_sysconfdir}/gconf/schemas/ekiga.schemas
 
 %changelog
+* Thu Apr 20 2017 Benjamin Otte <otte@redhat.com> - 4.0.1-7
+- Rebuild against newer evolution-data-server
+
 * Thu May 14 2015 Milan Crha <mcrha@redhat.com> - 4.0.1-5
 - Rebuild against newer evolution-data-server
 
