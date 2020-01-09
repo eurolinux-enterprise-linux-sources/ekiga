@@ -1,7 +1,7 @@
 Summary:	A Gnome based SIP/H323 teleconferencing application
 Name:		ekiga
 Version:	3.2.6
-Release:	3%{?dist}
+Release:	4%{?dist}
 URL:		http://www.ekiga.org/
 Source0:	ftp://ftp.gnome.org/pub/gnome/sources/ekiga/3.2/%{name}-%{version}.tar.bz2
 License:	GPLv2+
@@ -9,6 +9,7 @@ Group:		Applications/Communications
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Patch1:         translations.patch
+Patch2:         ekiga-3.2.6-wordsize.patch
 
 Requires:	evolution-data-server
 Requires:	dbus
@@ -52,6 +53,7 @@ It uses the standard SIP and H323 protocols.
 %setup -q
 
 %patch1 -p1 -b .translations
+%patch2 -p1 -b .wordsize
 
 # force regeneration to drop translations
 rm ekiga.schemas
@@ -146,6 +148,11 @@ scrollkeeper-update -q || :
 %{_sysconfdir}/gconf/schemas/ekiga.schemas
 
 %changelog
+* Thu Jun 13 2013 Milan Crha <mcrha@redhat.com> - 3.2.6-4
+- Rebuild against newer evolution-data-server.
+- Add patch to build break (include <bits/wordsize.h> where needed)
+Resolves: #973281
+
 * Sun Jun 06 2010 Benjamin Otte <otte@redhat.com> - 3.2.6-3
 - Correct source url
 Resolves: rhbz#600990

@@ -1,0 +1,11 @@
+diff -up ekiga-3.2.6/src/common.h.wordsize ekiga-3.2.6/src/common.h
+--- ekiga-3.2.6/src/common.h.wordsize	2013-06-13 13:16:52.088995711 +0200
++++ ekiga-3.2.6/src/common.h	2013-06-13 13:17:08.630995792 +0200
+@@ -39,6 +39,7 @@
+ #ifndef GM_COMMON_H_
+ #define GM_COMMON_H_
+ 
++#include <bits/wordsize.h>
+ #include <opal/buildopts.h>
+ #include <ptbuildopts.h>
+ 
