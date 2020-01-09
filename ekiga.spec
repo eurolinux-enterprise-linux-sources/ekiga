@@ -1,11 +1,13 @@
 Summary:	A Gnome based SIP/H323 teleconferencing application
 Name:		ekiga
 Version:	4.0.1
-Release:	1.2%{?dist}
+Release:	4%{?dist}
 License:	GPLv2+
 Group:		Applications/Communications
 URL:		http://www.ekiga.org/
 Source0:	ftp://ftp.gnome.org/pub/gnome/sources/ekiga/4.0/%{name}-%{version}.tar.xz
+
+Patch0: 	translations.patch
 
 BuildRequires:	ptlib-devel = 2.10.10
 BuildRequires:	opal-devel = 3.10.10
@@ -49,6 +51,7 @@ It uses the standard SIP and H323 protocols.
 
 %prep
 %setup -q
+%patch0 -p2 -b .translations
 
 # force regeneration to drop translations
 rm ekiga.schemas
@@ -142,6 +145,16 @@ scrollkeeper-update -q || :
 %{_sysconfdir}/gconf/schemas/ekiga.schemas
 
 %changelog
+* Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 4.0.1-4
+- Mass rebuild 2014-01-24
+
+* Fri Dec 27 2013 Daniel Mach <dmach@redhat.com> - 4.0.1-3
+- Mass rebuild 2013-12-27
+
+* Fri Dec 13 2013 Matthias Clasen <mclasen@redhat.com> - 4.0.1-2
+- Update translations
+- Resolves: #1030323
+
 * Tue Apr 30 2013 Daniel Mach <dmach@redhat.com> - 4.0.1-1.2
 - Rebuild for cyrus-sasl
 
