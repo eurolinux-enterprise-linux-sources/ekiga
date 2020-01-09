@@ -1,13 +1,14 @@
 Summary:	A Gnome based SIP/H323 teleconferencing application
 Name:		ekiga
 Version:	4.0.1
-Release:	7%{?dist}
+Release:	8%{?dist}
 License:	GPLv2+
 Group:		Applications/Communications
 URL:		http://www.ekiga.org/
 Source0:	ftp://ftp.gnome.org/pub/gnome/sources/ekiga/4.0/%{name}-%{version}.tar.xz
 
 Patch0: 	translations.patch
+Patch1: 	ekiga-4.0.1-libresolv.patch
 
 BuildRequires:	ptlib-devel = 2.10.10
 BuildRequires:	opal-devel = 3.10.10
@@ -29,10 +30,12 @@ BuildRequires:	openssl-devel
 BuildRequires:	SDL-devel
 BuildRequires:	speex-devel
 
+BuildRequires:	autoconf
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
 BuildRequires:	gnome-doc-utils
 BuildRequires:	intltool
+BuildRequires:	libtool
 BuildRequires:	pkgconfig
 BuildRequires:	scrollkeeper
 
@@ -53,11 +56,15 @@ It uses the standard SIP and H323 protocols.
 %prep
 %setup -q
 %patch0 -p2 -b .translations
+%patch1 -p1 -b .libresolv
 
 # force regeneration to drop translations
 rm ekiga.schemas
 
 %build
+
+autoreconf -fi
+
 CXXFLAGS="$RPM_OPT_FLAGS -DLDAP_DEPRECATED=1 -fPIC"
 %configure --disable-scrollkeeper --with-boost-libdir=%{_libdir}
 make %{?_smp_mflags}
@@ -146,6 +153,9 @@ scrollkeeper-update -q || :
 %{_sysconfdir}/gconf/schemas/ekiga.schemas
 
 %changelog
+* Wed Jun 13 2018 Milan Crha <mcrha@redhat.com> - 4.0.1-8
+- Rebuild against newer evolution-data-server
+
 * Thu Apr 20 2017 Benjamin Otte <otte@redhat.com> - 4.0.1-7
 - Rebuild against newer evolution-data-server
 
